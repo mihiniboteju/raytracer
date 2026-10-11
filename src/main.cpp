@@ -256,7 +256,7 @@ void bunny() {
   camera.look_from = Point(0, 0, 0.5);
   camera.look_at = Point(-0.5, 0.6, -1);
 
-  utils::clock([&camera]() { camera.render(); });
+  camera.render();
 }
 
 
@@ -301,7 +301,7 @@ void spheres_and_mirror() {
 
 
 int main() {
-  switch (11) {
+  switch (3) {
     // phong materials
     case 0: phong(); break;
     case 1: cornell_box(true); break;

@@ -1,0 +1,9 @@
+rm -f *.o build/*
+g++ -Wall -std=c++11 -fopenmp -DOPENMP  -I lib/ -I lib/glm-1.0.1/  -c -o build/main.o src/main.cpp
+g++ -Wall -std=c++11 -fopenmp -DOPENMP  -I lib/ -I lib/glm-1.0.1/  -o build/raytracer build/main.o
+rm -f *.o build/*
+g++ -Wall -std=c++11 -fopenmp -DOPENMP  -I lib/ -I lib/glm-1.0.1/  -c -o build/main.o src/main.cpp
+g++ -Wall -std=c++11 -fopenmp -DOPENMP  -I lib/ -I lib/glm-1.0.1/  -o build/raytracer build/main.o
+rm -f *.o build/*
+g++ -Wall -std=c++11 -fopenmp -DOPENMP  -I lib/ -I lib/glm-1.0.1/  -c -o build/main.o src/main.cpp
+g++ -Wall -std=c++11 -fopenmp -DOPENMP  -I lib/ -I lib/glm-1.0.1/  -o build/raytracer build/main.o

@@ -7,6 +7,10 @@
 #include "scene.hpp"
 #include "material.hpp"
 
+#ifdef OPENMP
+#include <omp.h>
+#endif
+
 namespace raytracer {
 
 // A camera that can render a scene.
@@ -40,8 +44,10 @@ class Camera {
       double pixels_sample_scale = 1.0 / samples_per_pixel;
 
     #ifdef OPENMP
+      double start_time = omp_get_wtime();
+
       // CPU parallelization
-      #pragma omp parallel for schedule(static)
+      #pragma omp parallel for schedule(dynamic, 1)
     #endif
 
       for (int j = 0; j < image_height; ++j) {
@@ -55,6 +61,14 @@ class Camera {
           pixels[j][i] = pixel_colour * pixels_sample_scale;
         }
       }
+
+    #ifdef OPENMP
+      double end_time = omp_get_wtime();
+      std::clog << "OMP parallel execution time: "
+                << (end_time - start_time)
+                << " seconds" << std::endl;
+    #endif
+
       utils::write_image(image_width, image_height, pixels);
     }
 
