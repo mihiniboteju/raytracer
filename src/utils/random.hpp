@@ -3,31 +3,14 @@
 #include "common.hpp"
 #include "vec.hpp"
 
-#include <random>
-
-#ifdef OPENMP
-#include <omp.h>
-#endif
-
 using namespace raytracer;
 
 // Utility functions for random number generation and sampling.
 namespace raytracer::random {
 
-inline std::mt19937& generator() {
-  thread_local std::mt19937 engine([] {
-    unsigned int seed = 0x9e3779b9u;
-#ifdef OPENMP
-    seed += static_cast<unsigned int>(omp_get_thread_num());
-#endif
-    return seed;
-  }());
-  return engine;
-}
-
 // returns a random real in [0,1).
 inline double rand() {
-  return std::generate_canonical<double, std::numeric_limits<double>::digits>(generator());
+  return std::rand() / (RAND_MAX + 1.0);
 }
 
 // returns a random real in [min,max).
@@ -37,7 +20,7 @@ inline double rand(double min, double max) {
 
 // returns a random integer in [min,max].
 inline double rand_int(int min, int max) {
-  return std::uniform_int_distribution<int>(min, max)(generator());
+  return min + std::rand() % (max - min + 1);
 }
 
 // returns a random sample in the quad defined by the point p and the vectors u and v
